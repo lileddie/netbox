@@ -17,7 +17,7 @@ ctrl+c
 Install pre-baked ansible roles used by playbook
 
 ~~~
-ansible-galaxy install geerlingguy.postgresql lae.netbox
+ansible-galaxy install geerlingguy.postgresql lae.netbox davidwittman.redis
 ~~~
 
 ### Build your stuff already

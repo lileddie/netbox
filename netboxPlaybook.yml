@@ -1,7 +1,7 @@
 ---
 - hosts: all
   tasks:
-    - name: checkout repo
+    - name: checkout private repo
       git:
         repo: https://github.com/lileddie/netbox.git
         dest: /var/tmp/
@@ -9,42 +9,43 @@
         accept_hostkey: yes
       become: no
     - name: configure and bring up Netbox
-      roles:
-        - geerlingguy.postgresql
-        - davidwittman.redis
-        - lae.netbox
-      vars:
-        netbox_stable: true
-        netbox_socket: "127.0.0.1:8001"
-        netbox_protocol: wsgi
-        netbox_superuser_username: admin
-        netbox_superuser_password: netbox
-        netbox_superuser_email: admin@localhost
-        netbox_config:
-          SECRET_KEY: netboxSecretKey
-          ALLOWED_HOSTS:
-            - "*"
-          MEDIA_ROOT: "{{ netbox_shared_path }}/media"
-          REPORTS_ROOT: "{{ netbox_shared_path }}/reports"
-        netbox_database: netbox
-        netbox_database_user: netbox
-        netbox_database_password: netbox
-        netbox_database_port: 5432
-        netbox_database_socket: "{{ postgresql_unix_socket_directories[0] }}"
-        netbox_keep_uwsgi_updated: true
-        # webhooks
-        netbox_webhooks_enabled: true
-        #db
-        postgresql_users:
-          - name: "{{ netbox_database_user }}"
-            role_attr_flags: CREATEDB,NOSUPERUSER
-        ## REDIS server install
-        redis_bind: 127.0.0.1
-        netbox_redis_host: 127.0.0.1
-        netbox_redis_port: 6379
-        netbox_redis_password: ''
-        netbox_redis_database: 0
-        netbox_redis_default_timeout: 300
+      netbox_module:
+        roles:
+          - geerlingguy.postgresql
+          - davidwittman.redis
+          - lae.netbox
+        vars:
+          netbox_stable: true
+          netbox_socket: "127.0.0.1:8001"
+          netbox_protocol: wsgi
+          netbox_superuser_username: admin
+          netbox_superuser_password: netbox
+          netbox_superuser_email: admin@localhost
+          netbox_config:
+            SECRET_KEY: netboxSecretKey
+            ALLOWED_HOSTS:
+              - "*"
+            MEDIA_ROOT: "{{ netbox_shared_path }}/media"
+            REPORTS_ROOT: "{{ netbox_shared_path }}/reports"
+          netbox_database: netbox
+          netbox_database_user: netbox
+          netbox_database_password: netbox
+          netbox_database_port: 5432
+          netbox_database_socket: "{{ postgresql_unix_socket_directories[0] }}"
+          netbox_keep_uwsgi_updated: true
+          # webhooks
+          netbox_webhooks_enabled: true
+          #db
+          postgresql_users:
+            - name: "{{ netbox_database_user }}"
+              role_attr_flags: CREATEDB,NOSUPERUSER
+          ## REDIS server install
+          redis_bind: 127.0.0.1
+          netbox_redis_host: 127.0.0.1
+          netbox_redis_port: 6379
+          netbox_redis_password: ''
+          netbox_redis_database: 0
+          netbox_redis_default_timeout: 300
       become: yes
     - name: install newest version of nginx
       apt: name=nginx state=latest
