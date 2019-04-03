@@ -41,27 +41,27 @@
         netbox_redis_password: ''
         netbox_redis_database: 0
         netbox_redis_default_timeout: 300
-      - name: install newest version of nginx
-        apt: name=nginx state=latest
-        become: yes
-      - name: copy netbox config files
-        copy:
-          src: /var/tmp/netbox/nginxConfig.cfg
-          dest: /etc/nginx/sites-available/netbox.cfg
-        become: yes
-      - name: create sym link
-        file:
-          src: /etc/nginx/sites-available/netbox.cfg
-          dest: /etc/nginx/sites-enabled/default
-          state: link
-        become: yes
-      - name: start nginx
-        service:
-          name: nginx
-          state: start
-        become: yes
-      - name: remove cloned repo
-        file:
-          path: /var/tmp/netbox
-          state: absent
-        become: yes
+    - name: install newest version of nginx
+      apt: name=nginx state=latest
+      become: yes
+    - name: copy netbox config files
+      copy:
+        src: /var/tmp/netbox/nginxConfig.cfg
+        dest: /etc/nginx/sites-available/netbox.cfg
+      become: yes
+    - name: create sym link
+      file:
+        src: /etc/nginx/sites-available/netbox.cfg
+        dest: /etc/nginx/sites-enabled/default
+        state: link
+      become: yes
+    - name: start nginx
+      service:
+        name: nginx
+        state: start
+      become: yes
+    - name: remove cloned repo
+      file:
+        path: /var/tmp/netbox
+        state: absent
+      become: yes
