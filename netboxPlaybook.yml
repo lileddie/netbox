@@ -2,7 +2,12 @@
 - hosts: all
   tasks:
     - name: checkout repo
-      git: repo=https://github.com/lileddie/netbox.git dest=/var/tmp/
+      git:
+        repo: https://github.com/lileddie/netbox.git
+        dest: /var/tmp/
+        version: master
+        accept_hostkey: yes
+      become: no
     - name: configure and bring up Netbox
       become: yes
       roles:
