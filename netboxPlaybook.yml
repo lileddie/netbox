@@ -9,7 +9,6 @@
         accept_hostkey: yes
       become: no
     - name: configure and bring up Netbox
-      become: yes
       roles:
         - geerlingguy.postgresql
         - davidwittman.redis
@@ -46,6 +45,7 @@
         netbox_redis_password: ''
         netbox_redis_database: 0
         netbox_redis_default_timeout: 300
+      become: yes
     - name: install newest version of nginx
       apt: name=nginx state=latest
       become: yes
