@@ -4,7 +4,7 @@
     - name: checkout private repo
       git:
         repo: https://github.com/lileddie/netbox.git
-        dest: /var/tmp/
+        dest: /var/tmp/netboxtmp
         version: master
         accept_hostkey: yes
     - name: install newest version of nginx
@@ -12,7 +12,8 @@
       become: yes
     - name: copy netbox config files
       copy:
-        src: /var/tmp/netbox/nginxConfig.cfg
+        remote_src: yes
+        src: /var/tmp/netboxtmp/nginxConfig.cfg
         dest: /etc/nginx/sites-available/netbox.cfg
       become: yes
     - name: create sym link
@@ -24,10 +25,10 @@
     - name: start nginx
       service:
         name: nginx
-        state: start
+        state: restarted
       become: yes
     - name: remove cloned repo
       file:
-        path: /var/tmp/netbox
+        path: /var/tmp/netboxtmp
         state: absent
       become: yes

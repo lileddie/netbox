@@ -7,7 +7,7 @@
   vars:
     netbox_stable: true
     netbox_socket: "127.0.0.1:8001"
-    netbox_protocol: wsgi
+# Not working?    netbox_protocol: wsgi
     netbox_superuser_username: admin
     netbox_superuser_password: netbox
     netbox_superuser_email: admin@localhost
@@ -33,7 +33,8 @@
     redis_bind: 127.0.0.1
     netbox_redis_host: 127.0.0.1
     netbox_redis_port: 6379
-    netbox_redis_password: ''
+# temporarily removing username    netbox_redis_user: redis
+# temporarily removing password    netbox_redis_password: redis
     netbox_redis_database: 0
     netbox_redis_default_timeout: 300
   become: yes

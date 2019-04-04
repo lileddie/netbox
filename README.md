@@ -22,8 +22,14 @@ ansible-galaxy install geerlingguy.postgresql lae.netbox davidwittman.redis
 
 ### Build your stuff already
 
-Run the ansible playbook to build the node
+Run the ansible playbooks to build the node
 
 ```
+ansible-playbook -i 192.168.1.55, netboxRedis.yml
 ansible-playbook -i 192.168.1.55, netbox/netboxPlaybook.yml
+ansbible-playbook -i 192.168.1.55, nginxPlaybook.yml
 ```
+
+### ToDos
+
+Working on my ansible skills, need to combine the playbooks.  Also want to add subversion integration for some legacy systems.
