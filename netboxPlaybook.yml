@@ -15,6 +15,8 @@
       SECRET_KEY: netboxSecretKey
       ALLOWED_HOSTS:
         - YOURHOST.YOURDOMAIN.com
+          ALTNAME.ALTDOMAIN.local
+          IP.ADD.RE.SS
       MEDIA_ROOT: "{{ netbox_shared_path }}/media"
       REPORTS_ROOT: "{{ netbox_shared_path }}/reports"
     netbox_database: netbox
